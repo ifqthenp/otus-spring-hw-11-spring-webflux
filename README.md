@@ -2,7 +2,7 @@
 
 # Spring Framework Developer
 
-## HW 11. CRUD Application with Ajax and REST-controllers
+## HW 11. CRUD Application with Spring WebFlux
 
 - Create library application using WebFlux
 
