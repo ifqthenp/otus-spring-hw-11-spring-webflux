@@ -1,1 +1,7 @@
-
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/library
+app:
+  config:
+    dbType: 'mongo-docker'
