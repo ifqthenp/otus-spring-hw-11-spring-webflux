@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -26,10 +25,8 @@ public class Book {
 
     private String year;
 
-    @DBRef(db = "library")
     private List<Author> authors = new ArrayList<>();
 
-    @DBRef(db = "library")
     private Set<Genre> genres = new HashSet<>();
 
     private List<Comment> comments = new ArrayList<>();
