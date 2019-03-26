@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 
 @Repository
-public interface BookRepository extends ReactiveMongoRepository<Book, String> {
+public interface BookRepository extends ReactiveMongoRepository<Book, String>, BookRepositoryCustom {
 
     Flux<Book> findBooksByTitleContainingIgnoreCase(String text);
 
