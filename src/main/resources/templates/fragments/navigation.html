@@ -15,7 +15,7 @@
                 <a class="nav-link" th:href="@{/library/books/search}">Find book</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/library/books/search/quick}" method="get">
+        <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/library/books/search/title}" method="get">
             <input class="form-control mr-sm-2" type="search" th:name="title" placeholder="Enter book title" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Quick search</button>
         </form>

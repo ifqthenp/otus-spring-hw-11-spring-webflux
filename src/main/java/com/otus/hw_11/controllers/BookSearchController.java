@@ -21,7 +21,7 @@ public class BookSearchController {
         return "book_search_form";
     }
 
-    @GetMapping("/library/books/search/quick")
+    @GetMapping("/library/books/search/title")
     public String quickSearchForm(@RequestParam(required = false) final String title, final Model model) {
         if (!title.isBlank()) {
             Flux<BookSearchResultDto> books = bookService.findBooksByTitleRequestParam(title);
