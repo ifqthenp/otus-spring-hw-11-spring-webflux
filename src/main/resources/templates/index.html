@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC Homework')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h3>Welcome to our library!</h3>
+            <p>Please use the navigation bar to search or to add a book</p>
+            <p>Total books in the library: <span th:text="${booksTotal}">a lot</span></p>
+            <p>Total authors in the library: <span th:text="${authorsTotal}">a lot</span></p>
+            <p>Total genres in the library: <span th:text="${genresTotal}">a lot</span></p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>

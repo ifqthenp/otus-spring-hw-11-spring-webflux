@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC Homework')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Oops, something went wrong</h3>
+        </div>
+    </div>
+    <div th:if="${status != null}" class="row mt-4">
+        <div class="col">
+            <span><strong>Status:</strong></span>
+            <span th:text="${status}"></span>
+        </div>
+    </div>
+    <div th:if="${error != null}" class="row mt-4">
+        <div class="col">
+            <span><strong>Error:</strong></span>
+            <span th:text="${error}"></span>
+        </div>
+    </div>
+    <div th:if="${message != null}" class="row mt-4">
+        <div class="col">
+            <span><strong>Message:</strong></span>
+            <span th:text="${message}"></span>
+        </div>
+    </div>
+<!--    <div th:if="${exception != null}" class="row mt-4">
+        <div class="col">
+            <span><strong>Exception:</strong></span>
+            <span th:text="${exception}"></span>
+        </div>
+    </div>
+    <div th:if="${trace != null}" class="row mt-4">
+        <div class="col">
+            <span><strong>Trace:</strong></span>
+            <span th:text="${trace}"></span>
+        </div>
+    </div>-->
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>
