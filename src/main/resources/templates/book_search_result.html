@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC | Book Search Results')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Search results</h3>
+        </div>
+    </div>
+    <div class="row mt-4" th:if="${not #lists.isEmpty(books)}">
+        <div class="col">
+            <table class="table table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                </tr>
+                <tr th:each="book: ${books}">
+                    <td th:text="${book.title}">title</td>
+                    <td th:text="${book.authors}">name</td>
+                    <td th:text="${book.genres}">surname</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-4" th:if="${#lists.isEmpty(books)}">
+        <div class="col">
+            <p>Nothing was found</p>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>

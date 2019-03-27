@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC | Find Book')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Please use this form to start searching</h3>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <form action="#" th:action="@{/library/books/search/full}" method="get">
+                <div class="form-group">
+                    <label for="inputBookTitle">Search by book title</label>
+                    <input type="text" th:name="title" class="form-control" id="inputBookTitle"
+                           aria-describedby="bookHelp">
+                    <small id="bookHelp" class="form-text text-muted">Search by title is case insensitive</small>
+                </div>
+                <div class="form-group">
+                    <label for="inputAuthorName">Search by author name</label>
+                    <input type="text" th:name="author" class="form-control" id="inputAuthorName">
+                    <small id="authorHelp" class="form-text text-muted">Search by first or last name is allowed</small>
+                </div>
+                <div class="form-group">
+                    <label for="inputGenre">Search by genre</label>
+                    <input type="text" th:name="genre" class="form-control" id="inputGenre">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>
