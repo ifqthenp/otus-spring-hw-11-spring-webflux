@@ -15,12 +15,14 @@
     </div>
     <div class="row mt-4">
         <div class="col">
-            <form action="#" th:action="@{/library/books/search/full}" method="get">
-                <div class="form-group">
-                    <label for="inputBookTitle">Search by book title</label>
+            <form th:action="@{/library/books/search/title}" th:method="get">
+                <label for="inputBookTitle">Search by book title</label>
+                <div class="form-group input-group">
                     <input type="text" th:name="title" class="form-control" id="inputBookTitle"
                            aria-describedby="bookHelp">
-                    <small id="bookHelp" class="form-text text-muted">Search by title is case insensitive</small>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="inputAuthorName">Search by author name</label>
