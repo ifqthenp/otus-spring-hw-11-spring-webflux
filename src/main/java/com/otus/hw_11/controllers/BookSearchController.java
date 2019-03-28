@@ -34,7 +34,7 @@ public class BookSearchController {
     }
 
     @GetMapping("/library/books/search/title")
-    public Mono<String> quickSearchForm(@RequestParam(required = false) final String title, final Model model) {
+    public Mono<String> searchByTitle(@RequestParam(required = false) final String title, final Model model) {
         if (!title.isBlank()) {
             Flux<BookSearchResultDto> books = bookService.findBooksByTitleRequestParam(title);
             model.addAttribute("books", new ReactiveDataDriverContextVariable(books, 1000));
