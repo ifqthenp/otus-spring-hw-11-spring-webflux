@@ -29,4 +29,8 @@ public class BookService {
         return bookRepo.findBooksByTitleContainingIgnoreCase(title);
     }
 
+    public Flux<BookSearchResultDto> findBooksByAuthorRequestParam(final String lastName) {
+        return bookRepo.findBooksByAuthorsLastName(lastName);
+    }
+
 }
