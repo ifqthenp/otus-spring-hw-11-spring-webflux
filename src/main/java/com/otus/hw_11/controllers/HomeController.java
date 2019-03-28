@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Controller
@@ -15,11 +16,11 @@ public class HomeController {
     private final BookService service;
 
     @GetMapping({"", "/", "/home"})
-    public String index(final Model model) {
+    public Mono<String> index(final Model model) {
         model.addAttribute("booksTotal", service.getBooksCount());
         model.addAttribute("authorsTotal", service.getAuthorsCount());
         model.addAttribute("genresTotal", service.getGenresCount());
-        return "index";
+        return Mono.just("index");
     }
 
 }
