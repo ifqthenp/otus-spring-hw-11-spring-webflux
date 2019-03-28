@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Controller
@@ -19,8 +20,10 @@ public class BookSearchController {
     private final BookService bookService;
 
     @GetMapping("/library/books/search")
-    public String fullSearchForm() {
-        return "book_search_form";
+    public Mono<String> fullSearchForm() {
+        return Mono.just("book_search_form");
+    }
+
     }
 
     @GetMapping("/library/books/search/title")
