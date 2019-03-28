@@ -3,6 +3,7 @@ package com.otus.hw_11.controllers;
 import com.otus.hw_11.dto.BookSearchResultDto;
 import com.otus.hw_11.services.BookService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.spring5.context.webflux.ReactiveDataDriverContextVariable;
 import reactor.core.publisher.Flux;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class BookSearchController {
