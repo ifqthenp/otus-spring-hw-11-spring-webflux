@@ -15,4 +15,7 @@ public interface BookRepository extends ReactiveMongoRepository<Book, String>, B
     @Query("{ 'authors.lastName' : ?0 }")
     Flux<BookSearchResultDto> findBooksByAuthorsLastName(String name);
 
+    @Query("{ 'genres.genreName' : ?0 }")
+    Flux<BookSearchResultDto> findBooksByGenreName(String genre);
+
 }

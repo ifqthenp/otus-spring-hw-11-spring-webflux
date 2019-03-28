@@ -33,4 +33,8 @@ public class BookService {
         return bookRepo.findBooksByAuthorsLastName(lastName);
     }
 
+    public Flux<BookSearchResultDto> findBooksByGenreName(final String genre) {
+        return bookRepo.findBooksByGenreName(genre);
+    }
+
 }
