@@ -42,4 +42,12 @@ public class BookSearchController {
         return Mono.just("book_search_result");
     }
 
+    @GetMapping("/library/books/search/genre")
+    public Mono<String> searchByGenre(@RequestParam(required = false) final String genre, final Model model) {
+        if (!genre.isBlank()) {
+            Flux<BookSearchResultDto> books = bookService.findBooksByGenreName(genre);
+            model.addAttribute("books", new ReactiveDataDriverContextVariable(books, 1000));
+        }
+        return Mono.just("book_search_result");
+    }
 }
