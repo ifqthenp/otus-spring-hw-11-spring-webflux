@@ -36,9 +36,14 @@
                 </div>
             </form>
 
+            <form th:action="@{/library/books/search/genre}" th:method="get">
+                <label for="inputGenre">Search by genre</label>
+                <div class="form-group input-group">
                     <input type="text" th:name="genre" class="form-control" id="inputGenre">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
