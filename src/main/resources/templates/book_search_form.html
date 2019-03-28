@@ -26,9 +26,16 @@
                 </div>
             </form>
 
+            <form th:action="@{/library/books/search/author}" th:method="get">
+                <label for="inputAuthorName">Search by author's last name</label>
+                <div class="form-group input-group">
+                    <input type="text" th:name="lastName" class="form-control" id="inputAuthorName">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputGenre">Search by genre</label>
+            </form>
+
                     <input type="text" th:name="genre" class="form-control" id="inputGenre">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
