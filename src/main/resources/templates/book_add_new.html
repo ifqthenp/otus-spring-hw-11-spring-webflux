@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC | Add Book')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Please use this form to add a book to the library</h3>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <form th:action="@{/library/books/add}" th:object="${bookAddFormDto}" method="post">
+                <div class="form-group">
+                    <label for="inputBookTitle">Enter book title</label>
+                    <input type="text" th:field="*{title}" class="form-control" id="inputBookTitle">
+                    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:class="text-danger">Incorrect title</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputAuthorFirstName">Enter author's first name</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" id="inputAuthorFirstName">
+                    <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:class="text-danger">Incorrect first name</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputAuthorLastName">Enter author's last name</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" id="inputAuthorLastName">
+                    <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:class="text-danger">Incorrect last name</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputGenre">Enter genre</label>
+                    <input type="text" th:field="*{genre}" class="form-control" id="inputGenre">
+                    <p th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}" th:class="text-danger">Incorrect genre</p>
+                </div>
+                <div class="form-group">
+                    <label for="inputYear">Enter year</label>
+                    <input type="text" th:field="*{year}" class="form-control" id="inputYear">
+                    <p th:if="${#fields.hasErrors('year')}" th:errors="*{year}" th:class="text-danger">Incorrect year</p>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>
