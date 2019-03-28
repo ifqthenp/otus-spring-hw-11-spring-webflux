@@ -1,5 +1,6 @@
 package com.otus.hw_11.services;
 
+import com.otus.hw_11.domain.Book;
 import com.otus.hw_11.dto.BookSearchResultDto;
 import com.otus.hw_11.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,10 @@ public class BookService {
 
     public Flux<BookSearchResultDto> findBooksByGenreName(final String genre) {
         return bookRepo.findBooksByGenreName(genre);
+    }
+
+    public Mono<Book> saveBook(final Book book) {
+        return bookRepo.save(book);
     }
 
 }
