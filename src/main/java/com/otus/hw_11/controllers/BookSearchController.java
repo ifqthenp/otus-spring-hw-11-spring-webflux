@@ -24,6 +24,13 @@ public class BookSearchController {
         return Mono.just("book_search_form");
     }
 
+    @GetMapping("/library/books/search/author")
+    public Mono<String> searchByAuthor(@RequestParam(required = false) final String lastName, final Model model) {
+        if (!lastName.isBlank()) {
+            Flux<BookSearchResultDto> books = bookService.findBooksByAuthorRequestParam(lastName);
+            model.addAttribute("books", new ReactiveDataDriverContextVariable(books, 1));
+        }
+        return Mono.just("book_search_result");
     }
 
     @GetMapping("/library/books/search/title")
