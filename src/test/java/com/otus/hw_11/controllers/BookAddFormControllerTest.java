@@ -12,13 +12,12 @@ import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfigurati
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.Mockito.*;
 
@@ -64,8 +63,7 @@ class BookAddFormControllerTest {
         final Book book = formDto.toEntity(formDto);
         when(service.saveBook(book)).thenReturn(Mono.just(book));
 
-        final EntityExchangeResult<String> returnResult =
-            client.post()
+        client.post()
             .uri(builder -> builder
                 .path("/library/books/add")
                 .queryParam("title", formDto.getTitle())
@@ -76,15 +74,11 @@ class BookAddFormControllerTest {
                 .build())
             .contentType(MediaType.TEXT_HTML)
             .exchange()
-            .expectStatus()
-            .isSeeOther()
-            .expectBody(String.class)
-            .returnResult();
+            .expectStatus().isSeeOther()
+            .expectHeader().valueEquals(HttpHeaders.LOCATION, "/home");
 
         verify(service).saveBook(book);
         verifyNoMoreInteractions(service);
-        assertThat(returnResult.getResponseHeaders().toString())
-            .contains("[Location:\"/home\"]");
     }
 
 }
