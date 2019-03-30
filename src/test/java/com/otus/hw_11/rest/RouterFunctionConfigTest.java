@@ -99,12 +99,13 @@ class RouterFunctionConfigTest {
     @DisplayName("can save a book")
     void testSaveBook() {
         final Book aBook = getBook();
-        when(service.saveBook(aBook)).thenReturn(Mono.just(aBook));
+        final Mono<Book> bookMono = Mono.just(aBook);
+        when(service.saveBook(aBook)).thenReturn(bookMono);
 
         client.post()
             .uri("/")
             .contentType(APPLICATION_JSON)
-            .body(Mono.just(aBook), Book.class)
+            .body(bookMono, Book.class)
             .exchange()
             .expectStatus()
             .isCreated()
