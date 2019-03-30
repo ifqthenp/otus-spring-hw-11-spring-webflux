@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -79,6 +80,18 @@ class RouterFunctionConfigTest {
             .isOk()
             .expectBody(Book.class)
             .isEqualTo(expectedBooks.get(aliceIdx));
+    }
+
+    @Test
+    @DisplayName("returns 404 if cannot find book by ID")
+    void testIfBookIdNotFound() {
+        final String fakeId = "test";
+        when(service.findById(fakeId)).thenReturn(Mono.empty());
+        client.get()
+            .uri("/{id}", fakeId)
+            .exchange()
+            .expectStatus()
+            .isNotFound();
     }
 
     private Flux<Book> getBooksFlux() {
