@@ -42,4 +42,8 @@ public class BookService {
         return bookRepo.save(book);
     }
 
+    public Flux<Book> findAll() {
+        return bookRepo.findAll();
+    }
+
 }
