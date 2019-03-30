@@ -46,4 +46,8 @@ public class BookService {
         return bookRepo.findAll();
     }
 
+    public Mono<Book> findById(final String id) {
+        return bookRepo.findById(id);
+    }
+
 }
