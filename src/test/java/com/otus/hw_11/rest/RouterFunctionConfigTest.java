@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest
@@ -92,6 +93,31 @@ class RouterFunctionConfigTest {
             .exchange()
             .expectStatus()
             .isNotFound();
+    }
+
+    @Test
+    @DisplayName("can save a book")
+    void testSaveBook() {
+        // @formatter:off
+        final Book aBook = new Book(new ObjectId("5c857854402f511692419328"),
+            "The Book of Calculation", "1202",
+            new ArrayList<>() {{ add(new Author("Leonardo", "Fibonacci")); }},
+            new HashSet<>() {{ add(new Genre("Mathematics")); }}, new ArrayList<>());
+        // @formatter:on
+        when(service.saveBook(aBook)).thenReturn(Mono.just(aBook));
+
+        client.post()
+            .uri("/")
+            .contentType(APPLICATION_JSON)
+            .body(Mono.just(aBook), Book.class)
+            .exchange()
+            .expectStatus()
+            .isCreated()
+            .expectBody(Book.class)
+            .isEqualTo(aBook);
+
+        verify(service).saveBook(aBook);
+        verifyNoMoreInteractions(service);
     }
 
     private Flux<Book> getBooksFlux() {

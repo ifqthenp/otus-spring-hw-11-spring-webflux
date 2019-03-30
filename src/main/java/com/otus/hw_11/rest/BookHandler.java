@@ -3,6 +3,7 @@ package com.otus.hw_11.rest;
 import com.otus.hw_11.domain.Book;
 import com.otus.hw_11.services.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
@@ -33,6 +34,14 @@ public class BookHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromObject(book)))
             .switchIfEmpty(notFound);
+    }
+
+    public Mono<ServerResponse> saveBook(ServerRequest request) {
+        final Mono<Book> bookMono = request.bodyToMono(Book.class);
+        return bookMono.flatMap(book ->
+            ServerResponse.status(HttpStatus.CREATED)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(service.saveBook(book), Book.class));
     }
 
 }
