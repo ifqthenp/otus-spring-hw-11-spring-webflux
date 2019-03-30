@@ -98,12 +98,7 @@ class RouterFunctionConfigTest {
     @Test
     @DisplayName("can save a book")
     void testSaveBook() {
-        // @formatter:off
-        final Book aBook = new Book(new ObjectId("5c857854402f511692419328"),
-            "The Book of Calculation", "1202",
-            new ArrayList<>() {{ add(new Author("Leonardo", "Fibonacci")); }},
-            new HashSet<>() {{ add(new Genre("Mathematics")); }}, new ArrayList<>());
-        // @formatter:on
+        final Book aBook = getBook();
         when(service.saveBook(aBook)).thenReturn(Mono.just(aBook));
 
         client.post()
@@ -118,6 +113,15 @@ class RouterFunctionConfigTest {
 
         verify(service).saveBook(aBook);
         verifyNoMoreInteractions(service);
+    }
+
+    private Book getBook() {
+        // @formatter:off
+        return new Book(new ObjectId("5c857854402f511692419328"),
+            "The Book of Calculation", "1202",
+            new ArrayList<>() {{ add(new Author("Leonardo", "Fibonacci")); }},
+            new HashSet<>() {{ add(new Genre("Mathematics")); }}, new ArrayList<>());
+        // @formatter:on
     }
 
     private Flux<Book> getBooksFlux() {
