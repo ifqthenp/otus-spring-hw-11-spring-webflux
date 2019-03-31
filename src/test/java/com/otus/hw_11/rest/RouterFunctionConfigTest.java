@@ -142,6 +142,30 @@ class RouterFunctionConfigTest {
         verifyNoMoreInteractions(service);
     }
 
+    @Test
+    @DisplayName("cannot update book if its ID does not exist")
+    void testUpdateBookNonExistId() {
+        final String fakeId = "fakeId";
+        when(service.findById(fakeId)).thenReturn(Mono.empty());
+
+        final Book updatedBook = getBook();
+        updatedBook.setTitle("Updated Title");
+        final Mono<Book> updatedBookMono = Mono.just(updatedBook);
+        when(service.saveBook(any())).thenReturn(updatedBookMono);
+
+        client.put()
+            .uri("/{id}", fakeId)
+            .accept(APPLICATION_JSON)
+            .body(updatedBookMono, Book.class)
+            .exchange()
+            .expectStatus()
+            .isNotFound();
+
+        verify(service).findById(fakeId);
+        verify(service, times(0)).saveBook(updatedBook);
+        verifyNoMoreInteractions(service);
+    }
+
     private Book getBook() {
         // @formatter:off
         return new Book(new ObjectId("5c857854402f511692419328"),
