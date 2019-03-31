@@ -14,16 +14,19 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 @Configuration
 public class RouterFunctionConfig {
 
+    private static final String REST_LIBRARY_BOOKS = "/rest/library/books";
+    private static final String REST_LIBRARY_BOOKS_ID = "/rest/library/books/{id}";
+
     @Bean
     RouterFunction<ServerResponse> genreRoutes(final BookHandler handler) {
-        //        return route(GET("/rest/library/books").and(accept(APPLICATION_JSON)), handler::getAllBooks)
-        //            .andRoute(GET("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::getBook)
-        //            .andRoute(POST("/rest/library/books").and(accept(APPLICATION_JSON)), handler::saveBook)
-        //            .andRoute(PUT("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::updateBook)
-        //            .andRoute(DELETE("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::deleteBook)
-        //            .andRoute(DELETE("/rest/library/books").and(accept(APPLICATION_JSON)), handler::deleteAllBooks);
+        //        return route(GET(REST_LIBRARY_BOOKS).and(accept(APPLICATION_JSON)), handler::getAllBooks)
+        //            .andRoute(GET(REST_LIBRARY_BOOKS_ID).and(accept(APPLICATION_JSON)), handler::getBook)
+        //            .andRoute(POST(REST_LIBRARY_BOOKS).and(accept(APPLICATION_JSON)), handler::saveBook)
+        //            .andRoute(PUT(REST_LIBRARY_BOOKS_ID).and(accept(APPLICATION_JSON)), handler::updateBook)
+        //            .andRoute(DELETE(REST_LIBRARY_BOOKS_ID).and(accept(APPLICATION_JSON)), handler::deleteBook)
+        //            .andRoute(DELETE(REST_LIBRARY_BOOKS).and(accept(APPLICATION_JSON)), handler::deleteAllBooks);
 
-        return nest(path("/rest/library/books"),
+        return nest(path(REST_LIBRARY_BOOKS),
             nest(accept(APPLICATION_JSON).or(contentType(APPLICATION_JSON)),
                 route(GET("/"), handler::getAllBooks)
                     .andRoute(method(HttpMethod.POST), handler::saveBook)
