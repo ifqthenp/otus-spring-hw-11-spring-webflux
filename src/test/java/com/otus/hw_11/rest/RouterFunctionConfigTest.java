@@ -35,7 +35,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 })
 class RouterFunctionConfigTest {
 
-    private WebTestClient client;
+    private WebTestClient testClient;
 
     @Autowired
     private ApplicationContext context;
@@ -47,7 +47,7 @@ class RouterFunctionConfigTest {
 
     @BeforeEach
     void setUp() {
-        client = WebTestClient
+        testClient = WebTestClient
             .bindToApplicationContext(context)
             .configureClient()
             .baseUrl("/rest/library/books")
@@ -59,7 +59,7 @@ class RouterFunctionConfigTest {
     @DisplayName("can get all books from repository")
     void testGetAllBooks() {
         when(service.findAll()).thenReturn(getBooksFlux());
-        client.get().uri("/")
+        testClient.get().uri("/")
             .exchange()
             .expectStatus()
             .isOk()
@@ -75,7 +75,7 @@ class RouterFunctionConfigTest {
         final String aliceId = "5c857854402f51169241931f";
         when(service.findById(aliceId)).thenReturn(getBooksFlux().elementAt(aliceIdx));
 
-        client.get().uri("/{id}", aliceId)
+        testClient.get().uri("/{id}", aliceId)
             .exchange()
             .expectStatus()
             .isOk()
@@ -88,7 +88,7 @@ class RouterFunctionConfigTest {
     void testIfBookIdNotFound() {
         final String fakeId = "test";
         when(service.findById(fakeId)).thenReturn(Mono.empty());
-        client.get()
+        testClient.get()
             .uri("/{id}", fakeId)
             .exchange()
             .expectStatus()
@@ -102,7 +102,7 @@ class RouterFunctionConfigTest {
         final Mono<Book> bookMono = Mono.just(aBook);
         when(service.saveBook(aBook)).thenReturn(bookMono);
 
-        client.post()
+        testClient.post()
             .uri("/")
             .contentType(APPLICATION_JSON)
             .body(bookMono, Book.class)
@@ -127,7 +127,7 @@ class RouterFunctionConfigTest {
         final Mono<Book> updatedBookMono = Mono.just(updatedBook);
         when(service.saveBook(any())).thenReturn(updatedBookMono);
 
-        client.put()
+        testClient.put()
             .uri("/{id}", existingBook.getId())
             .accept(APPLICATION_JSON)
             .body(updatedBookMono, Book.class)
@@ -153,7 +153,7 @@ class RouterFunctionConfigTest {
         final Mono<Book> updatedBookMono = Mono.just(updatedBook);
         when(service.saveBook(any())).thenReturn(updatedBookMono);
 
-        client.put()
+        testClient.put()
             .uri("/{id}", fakeId)
             .accept(APPLICATION_JSON)
             .body(updatedBookMono, Book.class)
@@ -174,7 +174,7 @@ class RouterFunctionConfigTest {
         when(service.findById(bookId)).thenReturn(Mono.just(aBook));
         when(service.delete(aBook)).thenReturn(Mono.empty());
 
-        client.delete()
+        testClient.delete()
             .uri("/{id}", bookId)
             .accept(APPLICATION_JSON)
             .exchange()
@@ -194,7 +194,7 @@ class RouterFunctionConfigTest {
         when(service.findById(bookId)).thenReturn(Mono.empty());
         when(service.delete(aBook)).thenReturn(Mono.empty());
 
-        client.delete()
+        testClient.delete()
             .uri("/{id}", bookId)
             .accept(APPLICATION_JSON)
             .exchange()
@@ -211,7 +211,7 @@ class RouterFunctionConfigTest {
     void testDeleteAllBooks() {
         when(service.deleteAll()).thenReturn(Mono.empty());
 
-        client.delete()
+        testClient.delete()
             .uri("/")
             .accept(APPLICATION_JSON)
             .exchange()
