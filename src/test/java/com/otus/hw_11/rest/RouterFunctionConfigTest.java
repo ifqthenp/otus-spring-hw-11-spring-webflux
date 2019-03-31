@@ -166,6 +166,47 @@ class RouterFunctionConfigTest {
         verifyNoMoreInteractions(service);
     }
 
+    @Test
+    @DisplayName("can delete a book")
+    void testDeleteBook() {
+        final Book aBook = getBook();
+        final String bookId = aBook.getId().toHexString();
+        when(service.findById(bookId)).thenReturn(Mono.just(aBook));
+        when(service.delete(aBook)).thenReturn(Mono.empty());
+
+        client.delete()
+            .uri("/{id}", bookId)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isOk();
+
+        verify(service).findById(anyString());
+        verify(service).delete(aBook);
+        verifyZeroInteractions(service);
+    }
+
+    @Test
+    @DisplayName("cannot delete a book if its ID does not exist")
+    void testDeleteBookIdNotFound() {
+        final Book aBook = getBook();
+        final String bookId = "non-existing-id";
+        when(service.findById(bookId)).thenReturn(Mono.empty());
+        when(service.delete(aBook)).thenReturn(Mono.empty());
+
+        client.delete()
+            .uri("/{id}", bookId)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isNotFound();
+
+        verify(service).findById(anyString());
+        verify(service, times(0)).delete(aBook);
+        verifyZeroInteractions(service);
+    }
+
+
     private Book getBook() {
         // @formatter:off
         return new Book(new ObjectId("5c857854402f511692419328"),

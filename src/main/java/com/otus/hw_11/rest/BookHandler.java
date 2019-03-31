@@ -60,4 +60,15 @@ public class BookHandler {
             .switchIfEmpty(notFound);
     }
 
+    public Mono<ServerResponse> deleteBook(ServerRequest request) {
+        final String id = request.pathVariable("id");
+        final Mono<Book> bookMono = service.findById(id);
+        final Mono<ServerResponse> notFound = ServerResponse.notFound().build();
+        return bookMono.flatMap(book ->
+            ServerResponse
+                .ok()
+                .build(service.delete(book)))
+            .switchIfEmpty(notFound);
+    }
+
 }

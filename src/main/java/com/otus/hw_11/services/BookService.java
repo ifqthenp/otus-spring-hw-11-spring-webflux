@@ -50,4 +50,8 @@ public class BookService {
         return bookRepo.findById(id);
     }
 
+    public Mono<Void> delete(final Book book) {
+        return bookRepo.delete(book);
+    }
+
 }

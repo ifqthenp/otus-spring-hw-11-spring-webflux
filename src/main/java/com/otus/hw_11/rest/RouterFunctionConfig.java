@@ -17,7 +17,8 @@ public class RouterFunctionConfig {
         return route(GET("/rest/library/books").and(accept(APPLICATION_JSON)), handler::getAllBooks)
             .andRoute(GET("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::getBook)
             .andRoute(POST("/rest/library/books").and(accept(APPLICATION_JSON)), handler::saveBook)
-            .andRoute(PUT("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::updateBook);
+            .andRoute(PUT("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::updateBook)
+            .andRoute(DELETE("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::deleteBook);
     }
 
 }
