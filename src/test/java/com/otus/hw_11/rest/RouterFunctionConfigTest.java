@@ -116,6 +116,32 @@ class RouterFunctionConfigTest {
         verifyNoMoreInteractions(service);
     }
 
+    @Test
+    @DisplayName("can update a book")
+    void testUpdateBook() {
+        final Book existingBook = getBook();
+        when(service.findById(anyString())).thenReturn(Mono.just(existingBook));
+
+        final Book updatedBook = getBook();
+        updatedBook.setTitle("Updated Title");
+        final Mono<Book> updatedBookMono = Mono.just(updatedBook);
+        when(service.saveBook(any())).thenReturn(updatedBookMono);
+
+        client.put()
+            .uri("/{id}", existingBook.getId())
+            .accept(APPLICATION_JSON)
+            .body(updatedBookMono, Book.class)
+            .exchange()
+            .expectStatus()
+            .isOk()
+            .expectBody(Book.class)
+            .isEqualTo(updatedBook);
+
+        verify(service).findById(anyString());
+        verify(service).saveBook(any());
+        verifyNoMoreInteractions(service);
+    }
+
     private Book getBook() {
         // @formatter:off
         return new Book(new ObjectId("5c857854402f511692419328"),

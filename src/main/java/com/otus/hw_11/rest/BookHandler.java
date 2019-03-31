@@ -44,4 +44,20 @@ public class BookHandler {
                 .body(service.saveBook(book), Book.class));
     }
 
+    public Mono<ServerResponse> updateBook(ServerRequest request) {
+        final String id = request.pathVariable("id");
+        final Mono<Book> existingBookMono = service.findById(id);
+        final Mono<Book> bookMono = request.bodyToMono(Book.class);
+        final Mono<ServerResponse> notFound = ServerResponse.notFound().build();
+        return bookMono.zipWith(existingBookMono, (book, existingBook) ->
+            new Book(existingBook.getId(), book.getTitle(), book.getYear(),
+                book.getAuthors(), book.getGenres(), book.getComments()))
+            .flatMap(book ->
+                ServerResponse
+                    .ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(service.saveBook(book), Book.class))
+            .switchIfEmpty(notFound);
+    }
+
 }
