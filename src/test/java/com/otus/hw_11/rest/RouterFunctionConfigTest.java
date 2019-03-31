@@ -206,6 +206,21 @@ class RouterFunctionConfigTest {
         verifyZeroInteractions(service);
     }
 
+    @Test
+    @DisplayName("can delete all books")
+    void testDeleteAllBooks() {
+        when(service.deleteAll()).thenReturn(Mono.empty());
+
+        client.delete()
+            .uri("/")
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isOk();
+
+        verify(service).deleteAll();
+        verifyZeroInteractions(service);
+    }
 
     private Book getBook() {
         // @formatter:off

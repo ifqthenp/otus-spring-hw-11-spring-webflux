@@ -18,7 +18,8 @@ public class RouterFunctionConfig {
             .andRoute(GET("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::getBook)
             .andRoute(POST("/rest/library/books").and(accept(APPLICATION_JSON)), handler::saveBook)
             .andRoute(PUT("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::updateBook)
-            .andRoute(DELETE("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::deleteBook);
+            .andRoute(DELETE("/rest/library/books/{id}").and(accept(APPLICATION_JSON)), handler::deleteBook)
+            .andRoute(DELETE("/rest/library/books").and(accept(APPLICATION_JSON)), handler::deleteAllBooks);
     }
 
 }

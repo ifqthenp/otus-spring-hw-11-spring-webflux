@@ -54,4 +54,8 @@ public class BookService {
         return bookRepo.delete(book);
     }
 
+    public Mono<Void> deleteAll() {
+        return bookRepo.deleteAll();
+    }
+
 }

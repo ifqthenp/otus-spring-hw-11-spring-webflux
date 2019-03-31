@@ -71,4 +71,10 @@ public class BookHandler {
             .switchIfEmpty(notFound);
     }
 
+    public Mono<ServerResponse> deleteAllBooks(ServerRequest request) {
+        return ServerResponse
+            .ok()
+            .build(service.deleteAll());
+    }
+
 }
