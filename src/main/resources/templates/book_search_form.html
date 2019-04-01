@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head::headerFragment(pageTitle='Spring MVC | Find Book')}">
+    <title>Home Page</title>
+</head>
+<body>
+<div class="container">
+    <nav th:replace="~{fragments/navigation::navFragment}"></nav>
+</div>
+<div class="container">
+    <div class="row mt-4">
+        <div class="col">
+            <h3>Please use this form to start searching</h3>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <form th:action="@{/library/books/search/title}" th:method="get">
+                <label for="inputBookTitle">Search by book title</label>
+                <div class="form-group input-group">
+                    <input type="text" th:name="title" class="form-control" id="inputBookTitle"
+                           aria-describedby="bookHelp">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <form th:action="@{/library/books/search/author}" th:method="get">
+                <label for="inputAuthorName">Search by author's last name</label>
+                <div class="form-group input-group">
+                    <input type="text" th:name="lastName" class="form-control" id="inputAuthorName">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+            <form th:action="@{/library/books/search/genre}" th:method="get">
+                <label for="inputGenre">Search by genre</label>
+                <div class="form-group input-group">
+                    <input type="text" th:name="genre" class="form-control" id="inputGenre">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{fragments/scripts::common-scripts}"></div>
+</body>
+</html>
