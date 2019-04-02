@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ifqthenp/spring-otus-hw-11-spring-webflux.svg?branch=master)](https://travis-ci.org/ifqthenp/spring-otus-hw-11-spring-webflux)
+[![Build Status](https://travis-ci.org/ifqthenp/otus-spring-hw-11-spring-webflux.svg?branch=master)](https://travis-ci.org/ifqthenp/otus-spring-hw-11-spring-webflux)
 
 # Spring Framework Developer
 
